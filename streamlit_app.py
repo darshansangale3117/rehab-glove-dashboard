@@ -14,13 +14,13 @@ SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1xVVp0eZqUp16RF-KVb_38Qy
 @st.cache_data(ttl=10) # Refreshes data every 10 seconds
 def load_data():
     try:
-        return pd.read_csv(SHEET_CSV_URL)
+        return pd.read_csv(https://docs.google.com/spreadsheets/d/1xVVp0eZqUp16RF-KVb_38Qyao3ah1ciwieH3um5G5Fw/edit?gid=0#gid=0)
     except:
         # Fixed fallback data with complete dictionary pairs
         return pd.DataFrame({
             'Patient_ID': ['P001', 'P002'],
             'Name': ['Alex Smith', 'Emma Watson'],
-            'Age':,
+            'Age',
             'Injury': ['Wrist Fracture', 'Stroke Hemiparesis'],
             'Target_Angle':,
             'Current_Angle':,
