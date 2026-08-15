@@ -24,7 +24,7 @@ def load_data():
             'Injury': ['Wrist Fracture', 'Stroke Hemiparesis'],
             'Target_Angle':,
             'Current_Angle':,
-            'Progress_Percent': [72, 50]
+            'Progress_Percent': [72, 36]
         })
 
 df = load_data()
@@ -64,7 +64,7 @@ with col2:
         'Angle achieved (°)': [20, 35, 50, int(patient_data['Current_Angle'])]
     })
     fig = px.line(history_data, x='Week', y='Angle achieved (°)', markers=True)
-    fig.update_layout(yaxis_range=[0, 100])
+    fig.update_layout(yaxis_range=[0, 120])
     st.plotly_chart(fig, use_container_width=True)
 
 # 5. Live System Status Footer
