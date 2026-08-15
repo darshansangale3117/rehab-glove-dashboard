@@ -8,7 +8,7 @@ st.title("🦾 Forearm Rehabilitation Glove Monitor")
 st.markdown("---")
 
 # 2. Connect to Free Google Sheets Database
-# REPLACE THIS LINK with your actual "Publish to Web" CSV link from Step 1
+# REPLACE THIS LINK with your actual "Publish to Web" CSV link later
 SHEET_CSV_URL = "https://google.com"
 
 @st.cache_data(ttl=10) # Refreshes data every 10 seconds
@@ -16,7 +16,7 @@ def load_data():
     try:
         return pd.read_csv(SHEET_CSV_URL)
     except:
-        # Fallback dummy data if sheet link is missing/wrong
+        # Fixed fallback data with complete dictionary pairs
         return pd.DataFrame({
             'Patient_ID': ['P001', 'P002'],
             'Name': ['Alex Smith', 'Emma Watson'],
@@ -24,7 +24,7 @@ def load_data():
             'Injury': ['Wrist Fracture', 'Stroke Hemiparesis'],
             'Target_Angle':,
             'Current_Angle':,
-            'Progress_Percent': [50, 77]
+            'Progress_Percent': [72, 50]
         })
 
 df = load_data()
@@ -36,8 +36,8 @@ selected_name = st.sidebar.selectbox("Select Patient Profile", df['Name'].unique
 # Filter data for selected patient
 patient_data = df[df['Name'] == selected_name].iloc[0]
 
-# 4. Display Layout Layout
-col1, col2 = st.columns([1, 2])
+# 4. Display Layout
+col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("📋 Patient Information")
@@ -57,14 +57,14 @@ with col2:
     progress = int(patient_data['Progress_Percent'])
     st.progress(progress / 100, text=f"Overall Mobility Recovered: {progress}%")
     
-    # Mock Historical Graph for Demo (Can be hooked to a second sheet tab later)
+    # Mock Historical Graph for Demo
     st.write("### Motion Recovery Velocity (Weekly Trends)")
     history_data = pd.DataFrame({
         'Week': ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
         'Angle achieved (°)': [20, 35, 50, int(patient_data['Current_Angle'])]
     })
     fig = px.line(history_data, x='Week', y='Angle achieved (°)', markers=True)
-    fig.update_layout(yaxis_range=[0,120])
+    fig.update_layout(yaxis_range=[0, 100])
     st.plotly_chart(fig, use_container_width=True)
 
 # 5. Live System Status Footer
