@@ -8,9 +8,8 @@ st.title("🦾 Forearm Rehabilitation Glove Monitor")
 st.markdown("---")
 
 # 2. Live Connection to Your Google Sheet Link
-# The URL below is modified to directly stream clean CSV data to your layout
 SHEET_ID = "1xVVp0eZqUp16RF-KVb_38Qyao3ah1ciwieH3um5G5Fw"
-SHEET_CSV_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv"
+SHEET_CSV_URL = f"https://google.com{SHEET_ID}/export?format=csv"
 
 @st.cache_data(ttl=5) # Checks for sensor updates every 5 seconds
 def load_data():
@@ -25,7 +24,7 @@ try:
     selected_name = st.sidebar.selectbox("Select Patient Profile", patient_names)
     
     # Filter matching row metrics
-    patient_data = df[df['Name'] == selected_name].iloc
+    patient_data = df[df['Name'] == selected_name].iloc[0]
 
     # 4. Interface Columns Configuration
     col1, col2 = st.columns(2)
@@ -55,7 +54,7 @@ try:
             'Angle achieved (°)': [20, 35, 50, int(patient_data['Current_Angle'])]
         })
         fig = px.line(history_data, x='Week', y='Angle achieved (°)', markers=True)
-        fig.update_layout(yaxis_range=)
+        fig.update_layout(yaxis_range=[0, 180])
         st.plotly_chart(fig, use_container_width=True)
 
 except Exception as e:
