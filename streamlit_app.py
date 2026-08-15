@@ -9,7 +9,7 @@ st.markdown("---")
 
 # 2. Connect to Free Google Sheets Database
 # REPLACE THIS LINK with your actual "Publish to Web" CSV link later
-SHEET_CSV_URL = "https://google.com"
+SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1xVVp0eZqUp16RF-KVb_38Qyao3ah1ciwieH3um5G5Fw/edit?gid=0#gid=0"
 
 @st.cache_data(ttl=10) # Refreshes data every 10 seconds
 def load_data():
@@ -24,7 +24,7 @@ def load_data():
             'Injury': ['Wrist Fracture', 'Stroke Hemiparesis'],
             'Target_Angle':,
             'Current_Angle':,
-            'Progress_Percent': [72, 36]
+            'Progress_Percent': [72, 50]
         })
 
 df = load_data()
@@ -64,7 +64,7 @@ with col2:
         'Angle achieved (°)': [20, 35, 50, int(patient_data['Current_Angle'])]
     })
     fig = px.line(history_data, x='Week', y='Angle achieved (°)', markers=True)
-    fig.update_layout(yaxis_range=[0, 120])
+    fig.update_layout(yaxis_range=[0, 100])
     st.plotly_chart(fig, use_container_width=True)
 
 # 5. Live System Status Footer
